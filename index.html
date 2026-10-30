@@ -1,0 +1,126 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de Filmes</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 30px;
+        }
+
+        input, select {
+            display: block;
+            margin-bottom: 10px;
+            padding: 5px;
+        }
+
+        button {
+            padding: 5px 15px;
+            cursor: pointer;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        .opcao {
+            display: inline;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Cadastro de Filmes Assistidos</h1>
+
+    <form id="formulario">
+
+        <label>Nome do filme:</label>
+        <input type="text" id="nome" required>
+
+        <label>Gênero do filme:</label>
+        <select id="genero" required>
+            <option value="">Selecione...</option>
+            <option value="Ação">Ação</option>
+            <option value="Comédia">Comédia</option>
+            <option value="Terror">Terror</option>
+            <option value="Drama">Drama</option>
+            <option value="Animação">Animação</option>
+        </select>
+
+        <label>Nota de avaliação (0 a 10):</label>
+        <input type="number" id="nota" min="0" max="10" required>
+
+        <label>Assistiria novamente?</label>
+
+        <input class="opcao" type="radio" name="novamente"
+        value="Sim" required> Sim
+
+        <input class="opcao" type="radio" name="novamente"
+        value="Não"> Não
+
+        <br><br>
+
+        <button type="submit">Enviar</button>
+
+    </form>
+
+    <h2>Filmes Cadastrados</h2>
+
+    <ol id="listaFilmes"></ol>
+
+    <script>
+
+        // Array para armazenar os filmes
+        let filmes = [];
+
+        const formulario = document.getElementById("formulario");
+        const lista = document.getElementById("listaFilmes");
+
+        formulario.addEventListener("submit", function(event) {
+
+            event.preventDefault();
+
+            // Captura os valores
+            let nome = document.getElementById("nome").value;
+            let genero = document.getElementById("genero").value;
+            let nota = document.getElementById("nota").value;
+            let novamente = document.querySelector(
+                'input[name="novamente"]:checked'
+            ).value;
+
+            // Cria o objeto filme
+            let filme = {
+                nome: nome,
+                genero: genero,
+                nota: nota,
+                novamente: novamente
+            };
+
+            // Adiciona ao array
+            filmes.push(filme);
+
+            // Cria um item na lista
+            let item = document.createElement("li");
+
+            item.textContent = nome + " - " + genero +
+                " - Nota " + nota + " - " + novamente;
+
+            // Adiciona o item na lista
+            lista.appendChild(item);
+
+            // Mostra o array no console
+            console.log(filmes);
+
+            // Limpa o formulário
+            formulario.reset();
+
+        });
+
+    </script>
+
+</body>
+</html>
